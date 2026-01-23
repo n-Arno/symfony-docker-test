@@ -4,9 +4,9 @@
 apt-get update -y
 apt install curl gpg gnupg2 software-properties-common ca-certificates apt-transport-https lsb-release unzip git -y
 add-apt-repository ppa:ondrej/php -y
-apt -y install apache2 php8.3 php8.3-xml php8.3-intl php8.3-mbstring php8.3-sqlite3 php8.3-zip php8.3-fpm
+apt -y install apache2 php8.5 php8.5-xml php8.5-intl php8.5-mbstring php8.5-sqlite3 php8.5-zip php8.5-fpm
 a2enmod proxy_fcgi setenvif
-a2enconf php8.3-fpm
+a2enconf php8.5-fpm
 
 # Composer
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -37,7 +37,7 @@ cat<<EOF>/etc/apache2/sites-enabled/000-default.conf
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
     <FilesMatch \.php\$>
-        SetHandler proxy:unix:/run/php/php8.3-fpm.sock|fcgi://dummy
+        SetHandler proxy:unix:/run/php/php8.5-fpm.sock|fcgi://dummy
     </FilesMatch>
     DocumentRoot /var/www/my_project/public
     <Directory /var/www/my_project/public>
